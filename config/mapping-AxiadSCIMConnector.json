@@ -1,0 +1,252 @@
+{
+            "target" : "system/AxiadSCIMConnector/__ACCOUNT__",
+            "source" : "managed/user",
+            "name" : "managedUser_systemAxiadscimconnector__ACCOUNT__",
+            "consentRequired" : false,
+            "icon" : null,
+            "displayName" : "managedUser_systemAxiadscimconnector__ACCOUNT__",
+            "properties" : [
+                {
+                    "target" : "userName",
+                    "source" : "userName"
+                },
+                {
+                    "target" : "externalId",
+                    "source" : "_id"
+                },
+                {
+                    "target" : "name",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var name = \n    {   givenName : source.givenName,\n        familyName : source.sn   };\nname;"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "active",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "source.accountStatus === 'active'"
+                    },
+                    "source" : "",
+                    "default" : false
+                },
+                {
+                    "target" : "displayName",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var formattedName =[];\nformattedName.push(source.givenName);\nformattedName.push(source.sn);\nformattedName.join(' ');"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "emails",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var emails = [];\nvar workEmail = {\n  primary: true,\n  type : \"work\",\n  value : source.mail\n }\nemails.push(workEmail);\nemails;"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "addresses",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var addresses =[];\nvar workAddress =  {\n  primary : true,\n  type : \"work\",\n  country  : source.country,\n  postalCode : source.postalCode,\n  region : source.stateProvince,\n  locality : source.city,\n  streetAddress : source.postalAddress\n}\naddresses.push(workAddress);\naddresses;"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "phoneNumbers",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var phoneNumbers = [];\nif(source.telephoneNumber){\nvar mobilePhone = \n    {\n      type : \"mobile\",\n      value : source.mobile\n    }\nphoneNumbers.push(mobilePhone);\n}\nif(source.telephoneNumber){\nvar workPhone = \n    {\n      type : \"work\",\n      primary : true,\n      value : source.telephoneNumber\n    }\nphoneNumbers.push(workPhone);\n}\nphoneNumbers;"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "manager",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "console.log(\"Manager \" + source.manager);\nvar manager = {};\nif(source.manager){\n   var memData= openidm.action(\"sync\", \"getLinkedResources\", null,{\"resourceName\" : \"managed/user/\" + source.manager._refResourceId})\n   if(memData && memData[0] && memData[0].content){\n  \tmanager.value = memData[0].content._id;\n   }\n}\nelse\n  manager = null;\nmanager;"
+                    },
+                    "source" : ""
+                },
+                {
+                    "target" : "organization",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var resultOrgNames = [];\nif(source.memberOfOrgIDs && source.memberOfOrgIDs.length >0)\n{\n  for(let i = 0; i < 1; i++) {\n    let memberOfOrgObj = source.memberOfOrgIDs[i];\n     var orgData = openidm.read(\"managed/organization/\" + memberOfOrgObj);\n    console.log('orgData' + orgData.name);\n      resultOrgNames.push(orgData.name);\n  }\n \n}\n resultOrgNames;"
+                    },
+                    "source" : ""
+                }
+            ],
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "correlationQuery" : [
+                {
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "all" : [
+                            "externalId"
+                        ]
+                    },
+                    "mapping" : "managedUser_systemAxiadscimconnector__ACCOUNT__",
+                    "type" : "text/javascript",
+                    "file" : "ui/correlateTreeToQueryFilter.js"
+                }
+            ]
+        },
+{
+            "target" : "system/AxiadSCIMConnector/__GROUP__",
+            "source" : "managed/role",
+            "name" : "managedRole_systemAxiadscimconnector__GROUP__",
+            "consentRequired" : false,
+            "icon" : null,
+            "displayName" : "managedRole_systemAxiadscimconnector__GROUP__",
+            "properties" : [
+                {
+                    "source" : "_id",
+                    "target" : "externalId"
+                },
+                {
+                    "target" : "displayName",
+                    "source" : "name"
+                },
+                {
+                    "target" : "members",
+                    "transform" : {
+                        "type" : "text/javascript",
+                        "globals" : { },
+                        "source" : "var resultMembers = [];\nif(source.members)\n{\n  for(let i = 0; i < source.members.length; i++) {\n    let memberObj = source.members[i];\n    var memData= openidm.action(\"sync\", \"getLinkedResources\", null,{\"resourceName\" : \"managed/user/\" + memberObj._refResourceId})\n    if(memData && memData[0] && memData[0].content)\n    {\n      var memeberParsedObj = {\n        type : \"user\",\n        value : memData[0].content._id\n      }\n      resultMembers.push(memeberParsedObj);\n    }\n  }\n}\nconsole.log(\"resultMembers \" + resultMembers);\nresultMembers;"
+                    },
+                    "source" : ""
+                }
+            ],
+            "policies" : [
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "AMBIGUOUS"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "SOURCE_MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "MISSING"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "FOUND_ALREADY_LINKED"
+                },
+                {
+                    "action" : "DELETE",
+                    "situation" : "UNQUALIFIED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "UNASSIGNED"
+                },
+                {
+                    "action" : "EXCEPTION",
+                    "situation" : "LINK_ONLY"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "TARGET_IGNORED"
+                },
+                {
+                    "action" : "IGNORE",
+                    "situation" : "SOURCE_IGNORED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "ALL_GONE"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "CONFIRMED"
+                },
+                {
+                    "action" : "UPDATE",
+                    "situation" : "FOUND"
+                },
+                {
+                    "action" : "CREATE",
+                    "situation" : "ABSENT"
+                }
+            ],
+            "correlationQuery" : [
+                {
+                    "linkQualifier" : "default",
+                    "expressionTree" : {
+                        "any" : [
+                            "externalId"
+                        ]
+                    },
+                    "mapping" : "managedRole_systemAxiadscimconnector__GROUP__",
+                    "type" : "text/javascript",
+                    "file" : "ui/correlateTreeToQueryFilter.js"
+                }
+            ]
+        }

@@ -1,0 +1,344 @@
+{
+    "connectorRef" : {
+        "displayName" : "Scim Connector",
+        "bundleVersion" : "1.5.20.14",
+        "systemType" : "provisioner.openicf",
+        "bundleName" : "org.forgerock.openicf.connectors.scim-connector",
+        "connectorName" : "org.forgerock.openicf.connectors.scim.ScimConnector",
+        "connectorHostRef" : ""
+    },
+    "poolConfigOption" : {
+        "maxObjects" : 10,
+        "maxIdle" : 10,
+        "maxWait" : 150000,
+        "minEvictableIdleTimeMillis" : 120000,
+        "minIdle" : 1
+    },
+    "resultsHandlerConfig" : {
+        "enableNormalizingResultsHandler" : false,
+        "enableFilteredResultsHandler" : false,
+        "enableCaseInsensitiveFilter" : false,
+        "enableAttributesToGetSearchResultsHandler" : true
+    },
+    "operationTimeout" : {
+        "CREATE" : -1,
+        "UPDATE" : -1,
+        "DELETE" : -1,
+        "TEST" : -1,
+        "SCRIPT_ON_CONNECTOR" : -1,
+        "SCRIPT_ON_RESOURCE" : -1,
+        "GET" : -1,
+        "RESOLVEUSERNAME" : -1,
+        "AUTHENTICATE" : -1,
+        "SEARCH" : -1,
+        "VALIDATE" : -1,
+        "SYNC" : -1,
+        "SCHEMA" : -1
+    },
+    "configurationProperties" : {
+        "SCIMEndpoint" : "https://",
+        "SCIMVersion" : "2",
+        "authenticationMethod" : "TOKEN",
+        "user" : null,
+        "password" : null,
+        "tokenEndpoint" : null,
+        "clientId" : null,
+        "clientSecret" : null,
+        "authToken" : "",
+        "refreshToken" : null,
+        "grantType" : null,
+        "scope" : null,
+        "acceptSelfSignedCertificates" : false,
+        "disableHostNameVerifier" : false,
+        "disableHttpCompression" : false,
+        "clientCertAlias" : null,
+        "clientCertPassword" : null,
+        "maximumConnections" : "10",
+        "httpProxyHost" : null,
+        "httpProxyPort" : null,
+        "httpProxyUsername" : null,
+        "httpProxyPassword" : null,
+        "connectionTimeout" : "30",
+        "authorizationTokenPrefix" : "Bearer",
+        "useBasicAuthForOauthTokenNeg" : true,
+        "readRateLimit" : null,
+        "acceptHeader" : "application/scim+json",
+        "contentTypeHeader" : null,
+        "writeRateLimit" : null,
+        "usePathForPatchV2" : true
+    },
+    "enabled" : true,
+    "objectTypes" : {
+        "__GROUP__" : {
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "id" : "__GROUP__",
+            "type" : "object",
+            "nativeType" : "__GROUP__",
+            "properties" : {
+                "displayName" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "displayName",
+                    "nativeType" : "string"
+                },
+                "meta" : {
+                    "type" : "object",
+                    "nativeName" : "meta",
+                    "nativeType" : "object",
+                    "flags" : [
+                        "NOT_CREATABLE",
+                        "NOT_UPDATEABLE"
+                    ]
+                },
+                "schemas" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "string",
+                        "nativeType" : "string"
+                    },
+                    "nativeName" : "schemas",
+                    "nativeType" : "string"
+                },
+                "members" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "members",
+                    "nativeType" : "object"
+                },
+                "__NAME__" : {
+                    "type" : "string",
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
+                },
+                "externalId" : {
+                    "type" : "string",
+                    "nativeName" : "externalId",
+                    "nativeType" : "string"
+                }
+            }
+        },
+        "__ACCOUNT__" : {
+            "$schema" : "http://json-schema.org/draft-03/schema",
+            "type" : "object",
+            "id" : "__ACCOUNT__",
+            "nativeType" : "__ACCOUNT__",
+            "properties" : {
+                "schemas" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "string",
+                        "nativeType" : "string"
+                    },
+                    "nativeName" : "schemas",
+                    "nativeType" : "string"
+                },
+                "phoneNumbers" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "phoneNumbers",
+                    "nativeType" : "object"
+                },
+                "active" : {
+                    "type" : "boolean",
+                    "nativeName" : "active",
+                    "nativeType" : "boolean"
+                },
+                "groups" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "groups",
+                    "nativeType" : "object",
+                    "flags" : [
+                        "NOT_CREATABLE",
+                        "NOT_UPDATEABLE"
+                    ]
+                },
+                "costCenter" : {
+                    "type" : "string",
+                    "nativeName" : "costCenter",
+                    "nativeType" : "string"
+                },
+                "emails" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "emails",
+                    "nativeType" : "object"
+                },
+                "division" : {
+                    "type" : "string",
+                    "nativeName" : "division",
+                    "nativeType" : "string"
+                },
+                "employeeNumber" : {
+                    "type" : "string",
+                    "nativeName" : "employeeNumber",
+                    "nativeType" : "string"
+                },
+                "organization" : {
+                    "type" : "string",
+                    "nativeName" : "organization",
+                    "nativeType" : "string"
+                },
+                "profileUrl" : {
+                    "type" : "string",
+                    "nativeName" : "profileUrl",
+                    "nativeType" : "string"
+                },
+                "userType" : {
+                    "type" : "string",
+                    "nativeName" : "userType",
+                    "nativeType" : "string"
+                },
+                "x509Certificates" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "x509Certificates",
+                    "nativeType" : "object"
+                },
+                "manager" : {
+                    "type" : "object",
+                    "nativeName" : "manager",
+                    "nativeType" : "object"
+                },
+                "userName" : {
+                    "type" : "string",
+                    "required" : true,
+                    "nativeName" : "userName",
+                    "nativeType" : "string"
+                },
+                "__NAME__" : {
+                    "type" : "string",
+                    "nativeName" : "__NAME__",
+                    "nativeType" : "string"
+                },
+                "timezone" : {
+                    "type" : "string",
+                    "nativeName" : "timezone",
+                    "nativeType" : "string"
+                },
+                "photos" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "photos",
+                    "nativeType" : "object"
+                },
+                "displayName" : {
+                    "type" : "string",
+                    "nativeName" : "displayName",
+                    "nativeType" : "string"
+                },
+                "__PASSWORD__" : {
+                    "type" : "string",
+                    "nativeName" : "__PASSWORD__",
+                    "nativeType" : "JAVA_TYPE_GUARDEDSTRING",
+                    "flags" : [
+                        "NOT_READABLE",
+                        "NOT_RETURNED_BY_DEFAULT"
+                    ]
+                },
+                "meta" : {
+                    "type" : "object",
+                    "nativeName" : "meta",
+                    "nativeType" : "object",
+                    "flags" : [
+                        "NOT_CREATABLE",
+                        "NOT_UPDATEABLE"
+                    ]
+                },
+                "entitlements" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "entitlements",
+                    "nativeType" : "object"
+                },
+                "department" : {
+                    "type" : "string",
+                    "nativeName" : "department",
+                    "nativeType" : "string"
+                },
+                "ims" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "ims",
+                    "nativeType" : "object"
+                },
+                "name" : {
+                    "type" : "object",
+                    "nativeName" : "name",
+                    "nativeType" : "object"
+                },
+                "nickName" : {
+                    "type" : "string",
+                    "nativeName" : "nickName",
+                    "nativeType" : "string"
+                },
+                "locale" : {
+                    "type" : "string",
+                    "nativeName" : "locale",
+                    "nativeType" : "string"
+                },
+                "roles" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "roles",
+                    "nativeType" : "object"
+                },
+                "preferredLanguage" : {
+                    "type" : "string",
+                    "nativeName" : "preferredLanguage",
+                    "nativeType" : "string"
+                },
+                "addresses" : {
+                    "type" : "array",
+                    "items" : {
+                        "type" : "object",
+                        "nativeType" : "object"
+                    },
+                    "nativeName" : "addresses",
+                    "nativeType" : "object"
+                },
+                "title" : {
+                    "type" : "string",
+                    "nativeName" : "title",
+                    "nativeType" : "string"
+                },
+                "externalId" : {
+                    "type" : "string",
+                    "nativeName" : "externalId",
+                    "nativeType" : "string"
+                }
+            }
+        }
+    },
+    "syncFailureHandler" : {
+        "maxRetries" : 5,
+        "postRetryAction" : "logged-ignore"
+    }
+}
