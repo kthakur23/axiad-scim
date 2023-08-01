@@ -30,8 +30,9 @@ If your Axiad Cloud tenant is already configured with the required mappings attr
 
 ## Configuring the Axiad SCIM Connector
 
-1. Copy the `provisioner.openicf-AxiadSCIMConnector.json` file from `config` directory into the `conf` directory where ForgeRock Identity Management is deployed.
-3. If the `sync.json` file exist into `conf` directory, copy the contents of `mapping-AxiadSCIMConnector.json` file from `config` directory in the mappings array inside the `conf\sync.json` file. If the `sync.json` file doesn't exist, copy the `sync.json` file from `config` directory in the `conf` directory where ForgeRock Identity Management is deployed.
+1. Download the latest SCIM Connector configuration and mapping file from [here](https://github.com/kthakur23/axiad-scim/tree/main/config). If assistance is needed, please contact [Axiad Customer Success](mailto:customer.success@axiad.com) team.
+2. Copy the `provisioner.openicf-AxiadSCIMConnector.json` file into the `conf` directory where ForgeRock Identity Management is deployed.
+3. If the `sync.json` file exist into `conf` directory, copy the contents of `mapping-AxiadSCIMConnector.json` in the mappings array inside the `conf\sync.json` file. If the `sync.json` file doesn't exist, copy the sync.json file in the `conf` directory where ForgeRock Identity Management is deployed.
 
 ## ForgeRock Configuration
 
