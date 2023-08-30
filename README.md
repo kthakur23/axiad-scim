@@ -185,7 +185,7 @@ If your Axiad Cloud tenant is already configured with the required mappings attr
       ![Linked System](./images/groups_mapping/group_linked_system.png)
 
    2. Navigate to the `Linked System` tab
-   3. Verify all the mapped attributes for this role have synced to Axiad and are displaying correctly in ForgeRockß◊
+   3. Verify all the mapped attributes for this role have synced to Axiad and are displaying correctly in ForgeRock
 
 ## Synchronize exsisting SCIM users and Roles
 
