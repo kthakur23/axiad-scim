@@ -9,7 +9,7 @@ Please refer to our website for more information about [Axiad](https://www.axiad
 
 ## Axiad SCIM Connector
 
-Axiad SCIM Connector enables automatic provisioning of users and groups between Axiad Cloud and ForgeRock using the secure and standard protocol, System for Cross-Domain Identity Management(SCIM). The Axiad SCIM connector allows partners to leverage certificate based authentication, which is the most secure, phishing-resistant form of multi-factor authentication (MFA) and is being increasingly deployed in enterprises as well as the public sector. Many enterprise employees, as well as the majority of federal agencies and defense employees/contractors, use a strong authenticator such as a smart card or hardware device for authentication. CBA streamlines the process of authenticating users with a variety of authenticators while improving overall protection.
+Axiad SCIM Connector enables automatic provisioning of users and groups between Axiad Cloud and ForgeRock using the secure and standard protocol, System for Cross-Domain Identity Management (SCIM). The Axiad SCIM connector allows partners to leverage certificate based authentication, which is the most secure, phishing-resistant form of multi-factor authentication (MFA) and is being increasingly deployed in enterprises as well as the public sector. Many enterprise employees, as well as the majority of federal agencies and defense employees/contractors, use a strong authenticator such as a smart card or hardware device for authentication. CBA streamlines the process of authenticating users with a variety of authenticators while improving overall protection.
 
 Axiad provides this SCIM Connector as a starting point for integrating ForgeRock and Axiad Cloud. Since every ForgeRock implementation is different we have provided a basic mapping of ForgeRock attributes for SCIM provisioning. Your organization's implementation may have differences which will require updates to ensure the SCIM Connector works properly.
 
@@ -22,29 +22,31 @@ Please work with [Axiad Customer Success](mailto:customer.success@axiad.com) bef
 1. ForgeRock Identity Management (OpenIDM) 7.3.0 or above
 1. Axiad Cloud tenant
 1. Axiad Cloud tenant available attribute list
+1. Axiad Cloud tenant SCIM credentials 
+1. Appropriate Axiad SCIM connector configuration files
 
 ## Axiad Configuration
 
-If your Axiad Cloud tenant is already configured with the required mappings attribute there is no additional Axiad configuration needed. If assistance is needed with your Axiad Cloud environment in the following sections please contact [Axiad Customer Success](mailto:customer.success@axiad.com).
+If your Axiad Cloud tenant is already configured with the required mappings attribute there is no additional Axiad configuration needed. If assistance is needed with your Axiad Cloud environment to configure SCIM, please contact [Axiad Customer Success](mailto:customer.success@axiad.com).
 
 ## Configuring the Axiad SCIM Connector
 
-1. Download the latest SCIM Connector configuration and mapping file from [here](https://github.com/kthakur23/axiad-scim/tree/main/config). If assistance is needed, please contact [Axiad Customer Success](mailto:customer.success@axiad.com) team.
+1. Get the latest SCIM Connector configuration and mapping file from the [Axiad Customer Success](mailto:customer.success@axiad.com) team.
 2. Copy the `provisioner.openicf-AxiadSCIMConnector.json` file into the `conf` directory where ForgeRock Identity Management is deployed.
-3. If the `sync.json` file exist into `conf` directory, copy the contents of `mapping-AxiadSCIMConnector.json` in the mappings array inside the `conf\sync.json` file. If the `sync.json` file doesn't exist, copy the sync.json file in the `conf` directory where ForgeRock Identity Management is deployed.
+3. If the `sync.json` file exist in the `conf` directory, copy the contents of `mapping-AxiadSCIMConnector.json` in the mappings array inside the `conf\sync.json` file. If the `sync.json` file doesn't exist, copy the sync.json file to the `conf` directory.
 
 ## ForgeRock Configuration
 
 ### 1. Axiad SCIM Connector Configuration
 
 1. Log into the ForgeRock Identity Management console
-2. Click `CONFIGURE` on the menu bar and select `CONNECTORS`. AxiadSCIMConnector will be available as shown
+2. Click `CONFIGURE` on the menu bar and select `CONNECTORS`. The AxiadSCIMConnector will be available as shown
   
    ![Axiad SCIM Connector |10x10](./images/axiad_scim_connector.png)
 
 3. Click on the `Axiad SCIM Connector`
 
-   3.1. Configure the `SCIM Endpoint` under `Base Connector Details` section as shown. If you do not have the SCIM endpoint please contact [Axiad Customer Success](mailto:customer.success@axiad.com)
+   3.1. Configure the `SCIM Endpoint` under `Base Connector Details` section as shown. If you do not have the SCIM endpoint, please contact [Axiad Customer Success](mailto:customer.success@axiad.com)
   
    ![SCIM Endpoint](./images/scim_endpoint_config.png)
 
@@ -67,7 +69,7 @@ If your Axiad Cloud tenant is already configured with the required mappings attr
   
       ![User_properties_tab](./images/users_mapping/user_properties_tab.png)
 
-   **_Note_** : By default the `Organization` property is mapping to the 1st organization in an array. If this is different than what you expect please change the mapping accordingly.
+   **_Note_** : By default the `Organization` property is mapped to the 1st organization in an array. If this is different than what you expect please change the mapping accordingly.
 
    1.2. Verify the `Association` tab has the `Association Rules` as shown
   
@@ -165,8 +167,43 @@ If your Axiad Cloud tenant is already configured with the required mappings attr
 
       ![Edit_resource](./images/groups_mapping/edit_resource.png)
 
-## Post configuration steps
+## Validation steps
 
-1. Test `User` provisioning by creating a user in ForgeRock and making sure it is provisioned in the Axiad Cloud and all the mappings are working as expected.
-2. Test `Role` provisioning by creating a role in ForgeRock and making sure it is provisioned in the Axiad Cloud and all the mappings are working as expected.
+1. How to validate `User` provisioning
+   1. Create a new user in ForgeRock
+   2. Wait for few seconds and if the user synchorization between `ForgeRock` and `Axiad` is successful, a `Linked System` tab will appear in ForgeRock for the new user as shown
 
+      ![Linked System](./images/users_mapping/user_linked_system.png)
+
+   2. Navigate to the `Linked System` tab
+   3. Verify all the mapped attributes for this user have synced to Axiad and are displaying correctly in ForgeRock
+
+2. How to validate `Role` provisioning
+   1. Create a new role in ForgeRock
+   2. Wait for few seconds and if the role synchorization between `ForgeRock` and `Axiad` is successful, a `Linked System` tab will appear in ForgeRock for the new role as shown
+
+      ![Linked System](./images/groups_mapping/group_linked_system.png)
+
+   2. Navigate to the `Linked System` tab
+   3. Verify all the mapped attributes for this role have synced to Axiad and are displaying correctly in ForgeRockß◊
+
+## Synchronize exsisting SCIM users and Roles
+
+### User Synchronization
+ 1. Log into the ForgeRock Identity Management console
+ 2. Click `CONFIGURE` on the menu bar and select `Mappings`
+ 3. Click on `Reconcile` where source is `Managed/User` as shown
+
+    ![Manager_edit_relationship](./images/users_mapping/reconcile_user.png)
+ 
+ 4. Verify the result of reconcilation by clicking the `edit` button on the `Managed/User` mapping
+
+### Role Synchronization 
+ 1. Log into the ForgeRock Identity Management console
+ 2. Click `CONFIGURE` on the menu bar and select `Mappings`
+ 3. Click on `Reconcile` where source is `Managed/Role` as shown
+
+    ![Manager_edit_relationship](./images/groups_mapping/reconcile_group-1.png)
+ 
+ 4. Verify the result of reconcilation by clicking the `edit` button on the `Managed/Role` mapping
+ 
