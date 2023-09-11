@@ -187,7 +187,7 @@ If your Axiad Cloud tenant is already configured with the required mappings attr
    2. Navigate to the `Linked System` tab
    3. Verify all the mapped attributes for this role have synced to Axiad and are displaying correctly in ForgeRock
 
-## Synchronize exsisting SCIM Users and Roles
+## Synchronize existing SCIM Users and Roles
 
 ### User Synchronization
  1. Log into the ForgeRock Identity Management console
